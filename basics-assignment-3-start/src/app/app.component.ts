@@ -14,12 +14,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   buttonClicked = false;
   clickLog = [];
-  clicks = 0;
 
   onButtonClick() {
-    this.clicks++;
     this.buttonClicked = true;
-    this.clickLog.push(this.clicks);
+    this.clickLog.push(new Date());
   }
 }
 
