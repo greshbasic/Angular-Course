@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row" *ngIf="(displayForm)">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h1>Sign-up Form</h1>
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div id="user-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+              type="text"
+              id="username"
+              class="form-control"
+              ngModel
+              name="username"
+              required
+              #username="ngModel"
+              >
+            <span class="help-block" *ngIf="!username.valid && username.touched">Please enter a valid username!</span>
+          </div>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input 
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel 
+              name="email"
+              required
+              #email="ngModel"
+              >
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select 
+            id="secret"
+            class="form-control"
+            ngModel
+            name="secret"
+            required
+            >
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea 
+            class="form-control"
+            rows="3"
+            name="questionAnswer"
+            ngModel
+            required
+            ></textarea>
+        </div>
+        <button 
+          (onClick)="onInitial()"
+          class="btn btn-primary"   
+          type="submit"
+          [disabled] = "!f.valid"
+          >Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!finalized">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <hr>
+      <h3>Your Data</h3>
+      <p>Username: {{givenUsername}}</p>
+      <p>Email: {{givenEmail}}</p>
+      <p>Secret Question: {{givenSecret}}</p>
+      <p>Answer: {{givenAnswer}}</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="finalized">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h3>Account successfully created!</h3>
+      <button
+        class="btn btn-primary"
+        (click)="back()"
+        >
+        Return to sign-up page</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <hr>
+      <h3>Does this look correct?</h3>
+      <button 
+        class="btn btn-primary confirm-button"
+        (click)="confirm()"
+        >
+        Confirm</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="displayForm">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h3>Users:</h3>
+      <div *ngFor="let user of userArray">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p>Username: {{user.name}}</p>
+            <p>Email: {{user.email}}</p>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
